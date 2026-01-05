@@ -2,6 +2,11 @@ import express from "express";
 import nodemailer from "nodemailer";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
@@ -9,13 +14,18 @@ const app = express();
 app.use(cors({
     origin: [
         "http://127.0.0.1:5500",
-        "http://localhost:5500"
+        "http://localhost:5500",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000"
     ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
     credentials: true
 }));
 app.use(express.json());
+
+// Serve static files (CSS, JS, images, etc.) from root directory
+app.use(express.static(__dirname));
 
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -118,6 +128,21 @@ app.post("/send-booking", async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log("SMTP server running on port 3000");
+// Routes to serve HTML pages
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "Index.html"));
+});
+
+app.get("/services", (req, res) => {
+    res.sendFile(path.join(__dirname, "services.html"));
+});
+
+app.get("/checkout", (req, res) => {
+    res.sendFile(path.join(__dirname, "checkout.html"));
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Visit http://localhost:${PORT} to view your website`);
 });

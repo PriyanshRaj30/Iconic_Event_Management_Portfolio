@@ -5,7 +5,7 @@
   "description": "Backend server for Iconic Events contact form",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm start",
     "dev": "nodemon server.js"
   },
   "dependencies": {
