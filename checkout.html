@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Iconic Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-page {
+            min-height: 100vh;
+            padding: 120px 5% 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-3xl);
+            align-items: start;
+        }
+
+        .order-summary {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            position: sticky;
+            top: 120px;
+        }
+
+        .order-summary h2 {
+            font-family: var(--font-display);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            font-weight: 700;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item .item-name {
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        .summary-item .item-category {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .summary-item .item-price {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            white-space: nowrap;
+            margin-left: var(--space-md);
+        }
+
+        .summary-total {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 2px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-total .label {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .summary-total .amount {
+            font-size: 2rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            font-family: var(--font-display);
+        }
+
+        .checkout-form-section {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+        }
+
+        .checkout-form-section h2 {
+            font-family: var(--font-display);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            margin-bottom: var(--space-xs);
+            font-weight: 700;
+        }
+
+        .checkout-form-section p {
+            color: var(--text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .checkout-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--space-md) var(--space-md) var(--space-md) 3rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-base);
+            font-family: var(--font-primary);
+        }
+
+        .checkout-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: var(--glow-primary);
+        }
+
+        .checkout-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .checkout-textarea {
+            min-height: 120px;
+            resize: vertical;
+            padding-top: var(--space-md);
+        }
+
+        .submit-booking {
+            width: 100%;
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gradient-accent);
+            color: var(--dark);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            letter-spacing: 2px;
+            box-shadow: var(--glow-accent);
+            margin-top: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .submit-booking:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 32px rgba(212, 175, 55, 0.5);
+        }
+
+        .submit-booking:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-booking:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-top-color: var(--dark);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .submit-booking.loading .loading-spinner {
+            display: block;
+        }
+
+        .submit-booking.loading .button-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: var(--space-xl);
+            transition: color var(--transition-base);
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .empty-cart h2 {
+            font-family: var(--font-display);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .empty-cart a {
+            display: inline-block;
+            margin-top: var(--space-lg);
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gradient-accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            transition: all var(--transition-base);
+        }
+
+        .empty-cart a:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-accent);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .order-summary {
+                position: static;
+                order: 2;
+            }
+
+            .checkout-form-section {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ICONIC EVENTS</div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Checkout Page -->
+    <div class="checkout-page">
+        <a href="services.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Services</span>
+        </a>
+
+        <div id="checkoutContent">
+            <!-- Content will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ICONIC EVENTS</h3>
+                <p>Creating unforgettable moments with precision, passion, and unparalleled expertise in luxury event
+                    management.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html#home">Home</a>
+                <a href="services.html">Services</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#testimonials">Testimonials</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="services.html">Wedding Planning</a>
+                <a href="services.html">Corporate Events</a>
+                <a href="services.html">Social Celebrations</a>
+                <a href="services.html">Destination Events</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 7:00 PM</p>
+                <p>Saturday: 10:00 AM - 5:00 PM</p>
+                <p>Sunday: By Appointment</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Iconic Events. All Rights Reserved. | Crafted with Excellence</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get cart data from sessionStorage
+        const cartData = JSON.parse(sessionStorage.getItem('checkoutCart') || '[]');
+        const checkoutContent = document.getElementById('checkoutContent');
+
+        if (cartData.length === 0) {
+            // Show empty cart message
+            checkoutContent.innerHTML = `
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h2>Your cart is empty</h2>
+                    <p>Add some services to proceed to checkout</p>
+                    <a href="services.html">Browse Services</a>
+                </div>
+            `;
+        } else {
+            // Calculate total
+            const total = cartData.reduce((sum, item) => sum + item.price, 0);
+
+            // Render checkout page
+            checkoutContent.innerHTML = `
+                <div class="checkout-container">
+                    <div class="checkout-form-section">
+                        <h2>Your Information</h2>
+                        <p>Please provide your details to complete the booking</p>
+                        
+                        <form id="checkoutForm" class="form-grid">
+                            <div class="input-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input 
+                                    type="text" 
+                                    class="checkout-input" 
+                                    id="customerName" 
+                                    placeholder="Full Name" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input 
+                                    type="email" 
+                                    class="checkout-input" 
+                                    id="customerEmail" 
+                                    placeholder="Email Address" 
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="input-wrapper">
+                                <i class="fas fa-phone input-icon"></i>
+                                <input 
+                                    type="tel" 
+                                    class="checkout-input" 
+                                    id="customerPhone" 
+                                    placeholder="Phone Number" 
+                                    pattern="[0-9+\\-\\s()]+"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar input-icon"></i>
+                                <input 
+                                    type="date" 
+                                    class="checkout-input" 
+                                    id="eventDate" 
+                                    placeholder="Event Date"
+                                >
+                            </div>
+                            
+                            <div class="input-wrapper">
+                                <i class="fas fa-comment input-icon" style="top: 1.5rem;"></i>
+                                <textarea 
+                                    class="checkout-input checkout-textarea" 
+                                    id="specialRequests" 
+                                    placeholder="Special Requests or Additional Details (Optional)"
+                                    style="padding-left: 3rem;"
+                                ></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-booking">
+                                <span class="button-text">
+                                    <i class="fas fa-check-circle"></i>
+                                    CONFIRM BOOKING
+                                </span>
+                                <div class="loading-spinner"></div>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="order-summary">
+                        <h2>Order Summary</h2>
+                        ${cartData.map(item => `
+                            <div class="summary-item">
+                                <div>
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-category">${item.category}</div>
+                                </div>
+                                <div class="item-price">₹${item.price.toLocaleString('en-IN')}</div>
+                            </div>
+                        `).join('')}
+                        
+                        <div class="summary-total">
+                            <span class="label">Total Amount:</span>
+                            <span class="amount">₹${total.toLocaleString('en-IN')}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Handle form submission
+            document.getElementById('checkoutForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const submitBtn = e.target.querySelector('.submit-booking');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('loading');
+
+                const bookingData = {
+                    customer: {
+                        name: document.getElementById('customerName').value,
+                        email: document.getElementById('customerEmail').value,
+                        phone: document.getElementById('customerPhone').value,
+                        eventDate: document.getElementById('eventDate').value,
+                        specialRequests: document.getElementById('specialRequests').value
+                    },
+                    services: cartData,
+                    total: total
+                };
+
+                try {
+                    const res = await fetch('http://localhost:3000/send-booking', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    if (res.ok) {
+                        // Clear cart from sessionStorage
+                        sessionStorage.removeItem('checkoutCart');
+
+                        // Show success message
+                        alert('🎉 Thank you for your booking! Our team will contact you within 24 hours to confirm the details.');
+
+                        // Redirect to home page
+                        window.location.href = 'index.html';
+                    } else {
+                        alert('Something went wrong with your booking. Please try again or contact us directly.');
+                        submitBtn.disabled = false;
+                        submitBtn.classList.remove('loading');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Server error. Please try again later or contact us at +91 98765 43210.');
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('loading');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

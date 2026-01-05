@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Iconic Events</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .service-image {
+            width: 100%;
+            height: 200px;
+            /* fixed height so layout stays clean */
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* THIS is the magic */
+            object-position: center;
+            /* keeps center focus */
+            display: block;
+            transition: transform .4s ease;
+        }
+
+        .subservice-card:hover .service-image img {
+            transform: scale(1.08);
+        }
+    </style>
+
+</head>
+<!-- CHECKOUT POPUP -->
+<div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-box">
+
+        <div class="checkout-header">
+            <h2>Thank You!</h2>
+            <button class="close-popup" onclick="closePopup()">×</button>
+        </div>
+
+        <p class="checkout-message">
+            Here’s a summary of your selected services.
+        </p>
+
+        <div class="checkout-services" id="checkoutServices"></div>
+
+        <div class="checkout-total">
+            <span>Total Amount:</span>
+            <strong id="checkoutAmount">₹0</strong>
+        </div>
+
+        <button class="checkout-confirm" onclick="confirmCheckout()">
+            CONFIRM BOOKING
+        </button>
+    </div>
+</div>
+
+<body>
+
+
+    <header>
+        <nav>
+            <div class="logo">ICONIC EVENTS</div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="services" id="services" style="margin-top:120px">
+        <h2 class="section-title">OUR SERVICES</h2>
+        <p class="section-subtitle">EXCELLENCE IN EVERY DETAIL</p>
+        <!-- Wedding Choreography -->
+        <div class="service-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <h3>Wedding Choreography</h3>
+                <p>Professional dance choreography for unforgettable wedding moments</p>
+            </div>
+            <div class="subservices">
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Wedding Choreography', 'Groom Solo Dance', 25000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/wedding-choreography.jpg" alt="Groom Solo Dance">
+                    </div>
+
+                    <h4>Groom Solo Dance</h4>
+                    <p>Stylish and impactful solo performance choreography for the groom.</p>
+                    <div class="price">₹25,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Wedding Choreography', 'Bride Solo Dance', 28000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/wedding-choreography.jpg" alt="Bride Solo Dance">
+                    </div>
+
+                    <h4>Bride Solo Dance</h4>
+                    <p>Graceful performance crafted to highlight the bride’s elegance.</p>
+                    <div class="price">₹28,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Wedding Choreography', 'Couple Dance', 45000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/wedding-choreography.jpg" alt="Couple Dance">
+                    </div>
+
+                    <h4>Couple Dance</h4>
+                    <p>Romantic choreography designed to tell your love story on stage.</p>
+                    <div class="price">₹45,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Wedding Choreography', 'Family Dance', 40000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/wedding-choreography.jpg" alt="Family Dance">
+                    </div>
+
+                    <h4>Family Dance</h4>
+                    <p>Fun family choreography bringing joy and energy to your celebration.</p>
+                    <div class="price">₹40,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Wedding Choreography', 'Group Dance', 60000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/wedding-choreography.jpg" alt="Group Dance">
+                    </div>
+
+                    <h4>Group Dance</h4>
+                    <p>Large-scale synchronized choreography for entertaining performances.</p>
+                    <div class="price">₹60,000</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Decorations -->
+        <div class="service-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <h3>Decorations</h3>
+                <p>Premium decor to elevate every moment beautifully</p>
+            </div>
+            <div class="subservices">
+
+                <div class="subservice-card" onclick="toggleService(this, 'Decorations', 'Kankotri Lekhan', 15000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/decorations.jpg" alt="Kankotri Lekhan">
+                    </div>
+                    <h4>Kankotri Lekhan</h4>
+                    <p>Elegant handcrafted wedding invitation writing.</p>
+                    <div class="price">₹15,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Decorations', 'Wall Painting', 30000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/decorations.jpg" alt="Wall Painting">
+                    </div>
+                    <h4>Wall Painting</h4>
+                    <p>Creative artistic decor enhancing your venue aesthetics.</p>
+                    <div class="price">₹30,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Decorations', 'Wedding Standee', 20000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/decorations.jpg" alt="Wedding Standee">
+                    </div>
+                    <h4>Wedding Standee</h4>
+                    <p>Personalized standees for elegant welcome displays.</p>
+                    <div class="price">₹20,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Decorations', 'Haldi, Mehndi & Chab', 55000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/decorations.jpg" alt="Haldi, Mehndi & Chab">
+                    </div>
+                    <h4>Haldi, Mehndi & Chab</h4>
+                    <p>Traditional themed decor for pre-wedding ceremonies.</p>
+                    <div class="price">₹55,000</div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Event Management -->
+        <div class="service-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <h3>Event Management</h3>
+                <p>Complete premium event execution handled professionally</p>
+            </div>
+            <div class="subservices">
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Event Management', 'Sangeet Sandhya', 120000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/event-management.jpg" alt="Sangeet Sandhya">
+                    </div>
+                    <h4>Sangeet Sandhya</h4>
+                    <p>Grand musical evening coordinated with perfection.</p>
+                    <div class="price">₹1,20,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Event Management', 'Anchor', 40000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/event-management.jpg" alt="Anchor">
+                    </div>
+                    <h4>Anchor</h4>
+                    <p>Professional anchor to host and engage your audience.</p>
+                    <div class="price">₹40,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Event Management', 'Sound & Lighting', 90000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/event-management.jpg" alt="Sound & Lighting">
+                    </div>
+                    <h4>Sound & Lighting</h4>
+                    <p>High-quality sound systems with cinematic lighting.</p>
+                    <div class="price">₹90,000</div>
+                </div>
+
+                <div class="subservice-card"
+                    onclick="toggleService(this, 'Event Management', 'LED & Truss Systems', 140000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/event-management.jpg" alt="LED & Truss Systems">
+                    </div>
+                    <h4>LED & Truss Systems</h4>
+                    <p>Professional stage setup with premium LED visuals.</p>
+                    <div class="price">₹1,40,000</div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- All Type of Entry -->
+        <div class="service-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <h3>All Type of Entry</h3>
+                <p>Dramatic royal grand entries that create unforgettable moments</p>
+            </div>
+            <div class="subservices">
+
+                <div class="subservice-card" onclick="toggleService(this, 'Entry', 'Pyro Entry', 80000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/grand-entry.jpg" alt="Pyro Entry">
+                    </div>
+                    <h4>Pyro Entry</h4>
+                    <p>Fire spark entry creating a powerful cinematic effect.</p>
+                    <div class="price">₹80,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Entry', 'Smoke Entry', 70000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/grand-entry.jpg" alt="Smoke Entry">
+                    </div>
+                    <h4>Smoke Entry</h4>
+                    <p>Magical smoke walkway entry for dramatic visuals.</p>
+                    <div class="price">₹70,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Entry', 'Mirror Entry', 90000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/grand-entry.jpg" alt="Mirror Entry">
+                    </div>
+                    <h4>Mirror Entry</h4>
+                    <p>Elegant mirror-themed royal entrance effect.</p>
+                    <div class="price">₹90,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Entry', 'Rose Entry', 60000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/grand-entry.jpg" alt="Rose Entry">
+                    </div>
+                    <h4>Rose Entry</h4>
+                    <p>Romantic fresh rose themed fairy-tale style entry.</p>
+                    <div class="price">₹60,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Entry', 'Artist Entry & More', 110000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/grand-entry.jpg" alt="Artist Entry & More">
+                    </div>
+                    <h4>Artist Entry & More</h4>
+                    <p>Grand celebrity-style royal entry concepts.</p>
+                    <div class="price">₹1,10,000</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Special Effects -->
+        <div class="service-category">
+            <div class="category-header" onclick="toggleCategory(this)">
+                <h3>Special Effects</h3>
+                <p>Luxury effects to give your event a cinematic experience</p>
+            </div>
+            <div class="subservices">
+
+                <div class="subservice-card" onclick="toggleService(this, 'Special Effects', 'SFX', 130000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/special-effects.jpg" alt="SFX">
+                    </div>
+                    <h4>SFX</h4>
+                    <p>Advanced special visual effects for stunning stage moments.</p>
+                    <div class="price">₹1,30,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Special Effects', 'Firework', 100000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/special-effects.jpg" alt="Firework">
+                    </div>
+                    <h4>Firework</h4>
+                    <p>Grand fireworks that light up the night sky beautifully.</p>
+                    <div class="price">₹1,00,000</div>
+                </div>
+
+                <div class="subservice-card" onclick="toggleService(this, 'Special Effects', 'Flower Shower', 85000)">
+                    <div class="service-image">
+                        <img src="Assets/Images/special-effects.jpg" alt="Flower Shower">
+                    </div>
+                    <h4>Flower Shower</h4>
+                    <p>Romantic rose petal shower effect for breathtaking moments.</p>
+                    <div class="price">₹85,000</div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- Cart Toggle Button -->
+    <div class="cart-toggle" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your cart is empty</div>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <h3>Total Amount</h3>
+            <div class="total-amount" id="totalAmount">₹0</div>
+            <button class="checkout-btn" onclick="checkout()">PROCEED TO CHECKOUT</button>
+        </div>
+    </div>
+    <script>
+        let cart = [];
+
+        function toggleCategory(header) {
+            const subservices = header.nextElementSibling;
+            subservices.classList.toggle('active');
+        }
+
+        function toggleService(card, category, name, price) {
+            const serviceId = `${category}-${name}`;
+            const existingIndex = cart.findIndex(item => item.id === serviceId);
+
+            if (existingIndex > -1) {
+                cart.splice(existingIndex, 1);
+                card.classList.remove('selected');
+            } else {
+                cart.push({
+                    id: serviceId,
+                    category: category,
+                    name: name,
+                    price: price
+                });
+                card.classList.add('selected');
+            }
+
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const totalAmount = document.getElementById('totalAmount');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+                cartTotal.style.display = 'none';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, index) => {
+                    total += item.price;
+                    return `
+                        <div class="cart-item">
+                            <div class="cart-item-header">
+                                <h4>${item.name}</h4>
+                                <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                            </div>
+                            <p>${item.category} Events</p>
+                            <div class="cart-item-price">₹${item.price.toLocaleString('en-IN')}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                totalAmount.textContent = `₹${total.toLocaleString('en-IN')}`;
+                cartTotal.style.display = 'block';
+            }
+        }
+
+        function removeFromCart(index) {
+            const removedItem = cart[index];
+            cart.splice(index, 1);
+
+            const cards = document.querySelectorAll('.subservice-card');
+            cards.forEach(card => {
+                const cardText = card.querySelector('h4').textContent;
+                if (cardText === removedItem.name) {
+                    card.classList.remove('selected');
+                }
+            });
+
+            updateCart();
+        }
+
+        function toggleCart() {
+            const cartPanel = document.getElementById('cartPanel');
+            cartPanel.classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+
+            // Save cart to sessionStorage
+            sessionStorage.setItem('checkoutCart', JSON.stringify(cart));
+
+            // Redirect to checkout page
+            window.location.href = 'checkout.html';
+        }
+        function closePopup() {
+            document.getElementById("checkoutOverlay").classList.remove("active");
+        }
+
+        async function confirmCheckout() {
+            const services = cart.map(item => ({
+                category: item.category,
+                name: item.name,
+                price: item.price
+            }));
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+            try {
+                const res = await fetch("http://localhost:3000/send-booking", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ services, total }),
+                });
+
+                if (res.ok) {
+                    alert("Thank you! Your booking has been received. Our team will contact you shortly 😊");
+                    cart = [];
+                    document.querySelectorAll('.subservice-card').forEach(c => c.classList.remove('selected'));
+                    updateCart();
+                    closePopup();
+                } else {
+                    alert("Something went wrong with your booking. Please try again or contact us directly.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Server error. Please try again later or contact us at +91 98765 43210.");
+            }
+        }
+
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for reaching out! We will get back to you within 24 hours.');
+            e.target.reset();
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-category, .testimonial-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
