@@ -67,7 +67,10 @@
     <header>
         <nav>
             <div class="logo">ICONIC EVENTS</div>
-            <ul class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="index.html#about">About</a></li>
@@ -83,7 +86,7 @@
         <!-- Wedding Choreography -->
         <div class="service-category">
             <div class="category-header" onclick="toggleCategory(this)">
-                <h3>Wedding Choreography</h3>
+                <h3><span>💃</span>Wedding Choreography</h3>
                 <p>Professional dance choreography for unforgettable wedding moments</p>
             </div>
             <div class="subservices">
@@ -148,7 +151,7 @@
         <!-- Decorations -->
         <div class="service-category">
             <div class="category-header" onclick="toggleCategory(this)">
-                <h3>Decorations</h3>
+                <h3><span>🌸</span>Decorations</h3>
                 <p>Premium decor to elevate every moment beautifully</p>
             </div>
             <div class="subservices">
@@ -197,7 +200,7 @@
         <!-- Event Management -->
         <div class="service-category">
             <div class="category-header" onclick="toggleCategory(this)">
-                <h3>Event Management</h3>
+                <h3><span>🎯</span>Event Management</h3>
                 <p>Complete premium event execution handled professionally</p>
             </div>
             <div class="subservices">
@@ -248,7 +251,7 @@
         <!-- All Type of Entry -->
         <div class="service-category">
             <div class="category-header" onclick="toggleCategory(this)">
-                <h3>All Type of Entry</h3>
+                <h3><span>👑</span>All Type of Entry</h3>
                 <p>Dramatic royal grand entries that create unforgettable moments</p>
             </div>
             <div class="subservices">
@@ -304,7 +307,7 @@
         <!-- Special Effects -->
         <div class="service-category">
             <div class="category-header" onclick="toggleCategory(this)">
-                <h3>Special Effects</h3>
+                <h3><span>✨</span>Special Effects</h3>
                 <p>Luxury effects to give your event a cinematic experience</p>
             </div>
             <div class="subservices">
@@ -369,6 +372,7 @@
         function toggleCategory(header) {
             const subservices = header.nextElementSibling;
             subservices.classList.toggle('active');
+            header.classList.toggle('active');
         }
 
         function toggleService(card, category, name, price) {
@@ -525,6 +529,29 @@
             el.style.transition = 'all 0.6s ease';
             observer.observe(el);
         });
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        if (mobileMenuToggle) {
+            mobileMenuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
     </script>
 </body>
 
