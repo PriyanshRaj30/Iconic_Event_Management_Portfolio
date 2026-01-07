@@ -469,7 +469,7 @@
             const total = cart.reduce((sum, item) => sum + item.price, 0);
 
             try {
-                const res = await fetch("http://localhost:3000/send-booking", {
+                const res = await fetch("/.netlify/functions/sendBooking", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ services, total }),

@@ -1,0 +1,17 @@
+[build]
+  publish = "."
+  
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Redirect for SPA-like routing
+[[redirects]]
+  from = "/services"
+  to = "/services.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/checkout.html"
+  status = 200
