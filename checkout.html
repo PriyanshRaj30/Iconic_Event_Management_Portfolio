@@ -407,16 +407,6 @@
                                 >
                             </div>
                             
-                            <div class="input-wrapper">
-                                <i class="fas fa-envelope input-icon"></i>
-                                <input 
-                                    type="email" 
-                                    class="checkout-input" 
-                                    id="customerEmail" 
-                                    placeholder="Email Address" 
-                                    required
-                                >
-                            </div>
                             
                             <div class="input-wrapper">
                                 <i class="fas fa-phone input-icon"></i>
@@ -430,22 +420,13 @@
                                 >
                             </div>
                             
-                            <div class="input-wrapper">
-                                <i class="fas fa-calendar input-icon"></i>
-                                <input 
-                                    type="date" 
-                                    class="checkout-input" 
-                                    id="eventDate" 
-                                    placeholder="Event Date"
-                                >
-                            </div>
                             
                             <div class="input-wrapper">
                                 <i class="fas fa-comment input-icon" style="top: 1.5rem;"></i>
                                 <textarea 
                                     class="checkout-input checkout-textarea" 
                                     id="specialRequests" 
-                                    placeholder="Special Requests or Additional Details (Optional)"
+                                    placeholder="Additional Details (Optional)"
                                     style="padding-left: 3rem;"
                                 ></textarea>
                             </div>
@@ -491,9 +472,7 @@
                 const bookingData = {
                     customer: {
                         name: document.getElementById('customerName').value,
-                        email: document.getElementById('customerEmail').value,
                         phone: document.getElementById('customerPhone').value,
-                        eventDate: document.getElementById('eventDate').value,
                         specialRequests: document.getElementById('specialRequests').value
                     },
                     services: cartData,

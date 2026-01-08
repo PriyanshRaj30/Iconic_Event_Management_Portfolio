@@ -2015,7 +2015,38 @@ footer {
         font-size: 0.9rem;
         letter-spacing: 2px;
     }
+
+    /* Fix category header text overflow on mobile */
+    .category-header {
+        padding: var(--space-md) var(--space-lg);
+        min-height: 120px;
+        max-width: 100%;
+    }
+
+    .category-header h3 {
+        font-size: clamp(1.2rem, 5vw, 1.6rem);
+        gap: var(--space-sm);
+        padding-left: 0;
+        flex-wrap: wrap;
+    }
+
+    .category-header h3 span {
+        font-size: 1.8rem;
+    }
+
+    .category-header p {
+        padding-left: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Hide decorative elements on mobile for cleaner look */
+    .category-header h3::before,
+    .category-header h3::after {
+        display: none;
+    }
 }
+
 
 @media (max-width: 480px) {
     .cart-toggle {
